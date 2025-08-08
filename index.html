@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rakhi Bond of affection</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      color: #b22222;
+      margin-bottom: 10px;
+    }
+    textarea {
+      width: 80%;
+      max-width: 400px;
+      height: 100px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      resize: none;
+    }
+    input[type="file"] {
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #ff7f50;
+      border: none;
+      color: white;
+      border-radius: 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #e06d3d;
+    }
+    #capsule {
+      margin-top: 20px;
+      display: none;
+      background: #fff0f5;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .rakhi-lock {
+      font-size: 2rem;
+      margin: 20px 0;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+    img.memory {
+      width: 200px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎁 Rakhi Special Gift For U💕❤</h1>
+  <p>🖊📝Write a letter and add a memory for your sibling.</p>
+
+  <textarea id="letter" placeholder="Please NEERAJ start to write here ...."></textarea><br>
+  <input type="file" id="photo" accept="image/*"><br>
+  <button onclick="lockCapsule()">🎀 Lock the Bond </button>
+
+  <div id="capsule">
+    <div class="rakhi-lock">🔒 Rakhi Locked</div>
+    <h2>💌 Tech Neeraj </h2>
+    <p id="displayLetter"></p>
+    <div id="displayPhoto"></div>
+    <button onclick="unlockCapsule()">🔓 Open Bond</button>
+  </div>
+
+  <script>
+    function lockCapsule() {
+      const letter = document.getElementById('letter').value.trim();
+      const photoInput = document.getElementById('photo');
+      const capsule = document.getElementById('capsule');
+      const displayLetter = document.getElementById('displayLetter');
+      const displayPhoto = document.getElementById('displayPhoto');
+
+      if (!letter && photoInput.files.length === 0) {
+        alert('Please add a letter or photo to lock the bond.');
+        return;
+      }
+
+      displayLetter.textContent = letter || '[No letter written..]';
+
+      // Handle image
+      displayPhoto.innerHTML = '';
+      if (photoInput.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'memory';
+          displayPhoto.appendChild(img);
+        }
+        reader.readAsDataURL(photoInput.files[0]);
+      }
+
+      capsule.style.display = 'block';
+    }
+
+    function unlockCapsule() {
+      const lockIcon = document.querySelector('.rakhi-lock');
+      lockIcon.textContent = '🎊 Rakhi Unlocked!';
+      lockIcon.style.animation = 'none';
+    }
+  </script>
+</body>
+</html>
